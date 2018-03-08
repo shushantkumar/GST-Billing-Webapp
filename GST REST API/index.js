@@ -11,7 +11,7 @@ const Pack = require('./package');
 // Create a server with a host and port
 const server=Hapi.server({
     host:'localhost',
-    port:3000
+    port:8000
 });
 
 const options = {
@@ -31,15 +31,26 @@ server.register([
         console.log(err);
 
     });
+    
 
 // Add the route
-server.route({
+server.route(
+    {
+    method:'GET',
+    path:'/hello',
+    handler:function(request,h) {
+
+        return'hello world';
+    }
+});
+server.route(
+    {
     method:'GET',
     path:'/product/{id}',
     config: {
         handler: function(request,reply){
             console.log(request.params);
-            reply("you reached server")
+            return("you reached server")
         },
         description: 'product gst',
         notes: 'Returns a product description',
@@ -48,7 +59,7 @@ server.route({
             params: {
                 username: Joi.number()
                         .required()
-                        .description('product gst'),
+                        .description('product gstY'),
             }
         }
     },
