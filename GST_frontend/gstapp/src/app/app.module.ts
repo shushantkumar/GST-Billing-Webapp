@@ -13,6 +13,10 @@ import {ButtonModule} from 'primeng/button';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {TableModule} from 'primeng/table';
+import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
+import {DialogModule} from 'primeng/dialog';
+import {PanelModule} from 'primeng/panel';
 
 
 @NgModule({
@@ -34,7 +38,11 @@ import {TableModule} from 'primeng/table';
     CheckboxModule,
     RadioButtonModule,
     SplitButtonModule,
-    TableModule
+    TableModule,
+    DataViewModule,
+    DropdownModule,
+    DialogModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
