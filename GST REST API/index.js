@@ -35,16 +35,16 @@ const options = {
         }
     };
 
-// server.register([
-//     Inert,
-//     Vision,
-//     {
-//         'register': HapiSwagger,
-//         'options': options
-//     }], (err) => {
-//         console.log(err);
+server.register([
+    Inert,
+    Vision,
+    {
+        'register': HapiSwagger,
+        'options': options
+    }], (err) => {
+        console.log(err);
 
-//     });
+    });
     
 
 // Add the route
@@ -57,28 +57,18 @@ server.route(
             console.log(request.params);
             let product_code = request.params.product_code;
             let final={
-                "id":"1"
             };
 
             var sql = "select * from product_details where product_code='"+product_code+"'";
             con.query(sql, function (err, result) {
                 if (err) throw err;
-                console.log(result);
-                // this.final.id=result[0];
-                // this.final.product_code=result[0].product_code;
-                // this.final.product_name=result[0].product_name;
-                // this.final.product_price=result[0].product_price;
-                // this.final.product_gst=result[0].product_gst;
-                console.log(result[0]);
-                // just();
-
+                // console.log(result);
+                // this.final=result[0];
+                return(result);
             }); 
-            // function just(){
-            //     this.final.id=2;
-            // };
 
-            console.log(final);
-            return(final);
+            console.log(something);
+            return("something");
         },
         description: 'Get product data',
         notes: 'product Get request',
@@ -88,7 +78,47 @@ server.route(
             params: {
                 product_code :Joi.string().required()
             }
-}
+        }
+    }
+});
+
+server.route(
+    {
+    method:'GET',
+    path:'/productget',
+    config:{
+        handler: function (request, reply) {
+            let resp={};
+            var sql = "select * from product_details";
+            con.query(sql,this, function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                this.resp=result;
+                // this.final=result[0];
+                // this.final.product_code=result[0].product_code;
+                // this.final.product_name=result[0].product_name;
+                // this.final.product_price=result[0].product_price;
+                // this.final.product_gst=result[0].product_gst;
+                // return(result);
+                console.log(this.resp);
+                
+            }); 
+            // function just(){
+            //     this.final.id=2;
+            // };
+
+            console.log(resp);
+            return(resp);
+        },
+        description: 'Get product data',
+        notes: 'product Get request',
+        tags: ['api'],
+        validate: {
+            failAction: Relish.failAction,
+            // params: {
+            //     product_code :Joi.string().required()
+            // }
+        }   
     }
 });
 
@@ -124,6 +154,33 @@ server.route(
                 product_gst: Joi.number().min(0).max(100)
 
             }
+        }
+    }
+});
+
+
+
+server.route({
+    method: 'DELETE',
+    path: '/productget/{product_code}',
+    handler: function (request, reply) {
+    let product_code = request.params.product_code;
+    var sql = "DELETE FROM product_details WHERE product_code = '" + product_code +"'";
+    con.query(sql,function (err, result, fields) {
+       if (err) throw err;
+ 
+       if (result.affectedRows) {
+           return(true);
+       } else {
+           return(false);
+       }
+    });
+    },
+    config: {
+        validate: {
+        params: {
+            product_code: Joi.string().required()
+        }
         }
     }
 });

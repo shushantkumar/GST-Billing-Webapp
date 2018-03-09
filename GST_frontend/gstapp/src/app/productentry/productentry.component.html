@@ -1,11 +1,11 @@
 <p-header >
-  <div class="container" style="background-color:#2c2c2c;">
+  <div class="container-fluid" style="background-color:#2c2c2c;">
     <b class="row" align="center" style="color:#da3730;font-size:40px;text-align: center;padding:40px;">GST Billing App</b>
   </div>
 </p-header>
 <br>
-<div class="container">
-    <form class="col-lg-6 col-md-12 col-sm-12 ui-fluid" style="background-color:#008080;padding:20px">
+<div class="container-fluid">
+    <form class="col-lg-4 col-md-12 col-sm-12 ui-fluid" style="background-color:#008080;padding:20px">
         <div class="col-lg-12 col-md-12" style="padding:5px 0px 5px 20px">
             <b style="font-size:20px;color:white">Product Details</b>
         </div>
@@ -40,7 +40,8 @@
             <button class="col-lg-4 ui-button-info" pButton type="button" (click)="count()" icon="fas fa-sync" label="Update"></button>
         </div>
     </form>
-    <p-table class="col-lg-12">
+    <br>
+    <p-table>
             <ng-template pTemplate="header">
                 <tr>
                     <th>Vin</th>
@@ -60,7 +61,7 @@
                 </tr>
             </ng-template>
 
-        </p-table>
+    </p-table>
 </div>
 <div class="conatiner">
 
