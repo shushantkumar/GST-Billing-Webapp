@@ -158,11 +158,9 @@ server.route(
     }
 });
 
-
-
 server.route({
     method: 'DELETE',
-    path: '/productget/{product_code}',
+    path: '/productdel/{product_code}',
     handler: function (request, reply) {
     let product_code = request.params.product_code;
     var sql = "DELETE FROM product_details WHERE product_code = '" + product_code +"'";
@@ -175,8 +173,12 @@ server.route({
            return(false);
        }
     });
+    return("Deleted");
     },
     config: {
+        description: 'delete product data',
+        notes: 'product DELETE request',
+        tags: ['api'],
         validate: {
         params: {
             product_code: Joi.string().required()
@@ -185,6 +187,48 @@ server.route({
     }
 });
 
+server.route(
+    {
+    method:'PUT',
+    path:'/productput/{product_code}',
+    config: {handler: function(request,reply){
+        // console.log(request.params); //params for get
+        console.log("hey reached");
+        console.log(request.payload);
+        let product_code = request.params.product_code;
+        console.log(product_code);
+        let product_name = request.payload.product_name;
+        let product_price = request.payload.product_price;
+        let product_gst = request.payload.product_gst;
+        console.log(product_gst);
+
+            var sql = "update product_details set product_name='"+product_name+"',product_price='"+product_price+"',product_gst='"+product_gst+"' where product_code='"+product_code+"'";
+            con.query(sql, function (err, result) {
+              if (err) throw err;
+              console.log(result);
+              console.log("1 record updated");
+            });
+
+        return ({success:true,message: "product data updated"});
+    },
+        description: 'put product request',
+        notes:'put  requ',
+        tags:['api'],
+        validate:{
+            failAction: Relish.failAction,
+            params:{
+                product_code: Joi.string().required(),
+            },
+            payload:{
+                
+                product_name: Joi.string().required(),
+                product_price: Joi.number().required(),
+                product_gst: Joi.number().min(0).max(100)
+
+            }
+        }
+    }
+});
 // Start the server
 async function start() {
 
