@@ -1,78 +1,84 @@
 <p-header >
-    <div class="container" style="background-color:#2c2c2c;">
+    <div class="container-fluid" style="background-color:#2c2c2c;">
       <b class="row" align="center" style="color:#da3730;font-size:40px;text-align: center;padding:40px;">GST Billing App</b>
     </div>
 </p-header>
-<div class="col-lg-12">
-    <p-dataView #dv [value]="cars" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
-    [sortField]="sortField" [sortOrder]="sortOrder">
-    <p-header>
-        <div class="ui-helper-clearfix">
-            <div class="ui-g">
-                <div class="ui-g-6 ui-md-4 filter-container">
-                    <div style="position:relative">
-                        <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)">
-                    </div>
-                </div>
-                <div class="ui-g-6 ui-md-4" style="text-align:right">
-                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                </div>
-            </div>
+
+<div>
+    <div class="col-lg-12" style="padding:30px">
+        <div class="row">
+        <i class="col-lg-1 fas fa-search" style="font-size:30px"></i>
+        <input id="search" class="col-lg-8 form-control " type="text" pInputText placeholder="Search by any field..." [(ngModel)]="search" required>   
+           
+
         </div>
-    </p-header>
-    <ng-template let-car pTemplate="listItem">
-        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-            <div class="ui-g-12 ui-md-3" style="text-align:center">
-                <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+        <br>
+        <div class="container-fluid">
+        <div class="ui-g-8">
+            <div class="col-lg-12 col-md-12" style="padding:5px 0px 5px 20px">
+                <b style="font-size:20px;color:#4d4d4d">Selected Products</b>
             </div>
-            <div class="ui-g-12 ui-md-8 car-details">
-                <div class="ui-g">
-                    <div class="ui-g-2 ui-sm-6">Vin: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{car.vin}}</b></div>
-                    
-                    <div class="ui-g-2 ui-sm-6">Year: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{car.year}}</b></div>
-                    
-                    <div class="ui-g-2 ui-sm-6">Brand: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{car.brand}}</b></div>
-                    
-                    <div class="ui-g-2 ui-sm-6">Color: </div>
-                    <div class="ui-g-10 ui-sm-6"><b>{{car.color}}</b></div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-1 search-icon">
-                <button pButton type="button" icon="fa-search" (click)="selectCar($event, car)"></button>
-            </div>
+            <p-table [value]="selectProducts.prods">
+                
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align:center">Product_Code</th>
+                        <th style="text-align:center">Product_Name</th>
+                        <th style="text-align:center">Product_Price (₹)</th>
+                        <th style="text-align:center">Product_Gst (%)</th>
+                        <th style="text-align:center">Quantity</th>
+                        <th style="text-align:center">Total Price</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-iter>
+                    <tr>
+                        <td>{{iter.product_code}}</td>
+                        <td>{{iter.product_name}}</td>
+                        <td>{{iter.product_price}}</td>
+                        <td>{{iter.product_gst}}</td>
+                        <td><input class="form-control" type="number" pInputText [(ngModel)]="iter.prod_quant" ></td>
+                        <td><input class="form-control" type="number" pInputText [(ngModel)]="iter.prod_quant*iter.product_gst*iter.product_price/iter.prod_frac" disabled></td>
+                        <!-- <td>{{iter.prod_total}}</td> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>Total Gross Price</b></td>
+                        <td>{{getGrossTotal()}}</td>
+                      </tr>
+                </ng-template>
+            </p-table>
         </div>
-    </ng-template>
-    <ng-template let-car pTemplate="gridItem">
-        <div style="padding:.5em" class="ui-g-12 ui-md-3">
-            <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
-                <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
-                <div class="car-detail">{{car.year}} - {{car.color}}</div>
-                <hr class="ui-widget-content" style="border-top:0">
-                <button pButton type="button" icon="fa-search" (click)="selectCar($event, car)" style="margin-top:0"></button>
-            </p-panel>
+        <div class="ui-g-4">
+        <div class="col-lg-12 col-md-12" style="padding:5px 0px 5px 20px">
+            <b style="font-size:20px;color:#4d4d4d">Search Results</b>
         </div>
-    </ng-template>
-</p-dataView>
-    
-<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="225" (onAfterHide)="onDialogHide()">
-    <div class="ui-g" *ngIf="selectedCar">
-        <div class="ui-g-12" style="text-align:center">
-            <img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">
+        <p-table [value]="allentries | filter:search" >
+            <ng-template pTemplate="header">
+                <tr  style="text-align:center;word-wrap:break-word;">
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Product Price (₹)</th>
+                    <th>Product Gst (%)</th>
+                    <th></th> 
+                </tr>
+            </ng-template>
+            <br>
+            <ng-template pTemplate="body" let-meta>
+                <tr style="text-align:center;word-wrap:break-word;">
+                    <td>{{meta.product_code}}</td>
+                    <td>{{meta.product_name}}</td>
+                    <td>{{meta.product_price}}</td>
+                    <td>{{meta.product_gst}}</td>
+                    <td  style="text-align:center"><button pButton type="button" (click)="selectProduct(meta)" label="Select"><i class="fas fa-upload"></i></button></td>
+                </tr>
+            </ng-template>
+        </p-table>
         </div>
-        <div class="ui-g-4">Vin: </div>
-        <div class="ui-g-8">{{selectedCar.vin}}</div>
-        
-        <div class="ui-g-4">Brand: </div>
-        <div class="ui-g-8">{{selectedCar.brand}}</div>
-        
-        <div class="ui-g-4">Year: </div>
-        <div class="ui-g-8">{{selectedCar.year}}</div>
-        
-        <div class="ui-g-4">Color: </div>
-        <div class="ui-g-8">{{selectedCar.color}}</div>
-    </div>
-</p-dialog>
+        </div>
+</div>
 </div>

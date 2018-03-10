@@ -50,19 +50,19 @@
                 <tr>
                     <th style="text-align:center">Product_Code</th>
                     <th style="text-align:center">Product_Name</th>
-                    <th style="text-align:center">Product_Price ₹</th>
-                    <th style="text-align:center">Product_Gst %</th>
+                    <th style="text-align:center">Product_Price (₹)</th>
+                    <th style="text-align:center">Product_Gst (%)</th>
                     <th></th>
                 </tr>
             </ng-template>
             <br>
-            <ng-template pTemplate="body">
-                <tr *ngFor="let meta of allentries;">
+            <ng-template pTemplate="body" let-meta>
+                <tr>
                     <td>{{meta.product_code}}</td>
                     <td>{{meta.product_name}}</td>
                     <td>{{meta.product_price}}</td>
                     <td>{{meta.product_gst}}</td>
-                    <td  style="text-align:center"><button pButton type="button" (click)="editProduct(meta)" label="|____Edit____|"><i class="fas fa-edit"></i></button></td>
+                    <td style="text-align:center"><button pButton type="button" (click)="editProduct(meta)" label="|____Edit____|"><i class="fas fa-edit"></i></button></td>
                 </tr>
             </ng-template>
 
@@ -72,7 +72,11 @@
 
   
 </div>
-
+<div>
+    <div >
+        <button pButton type="button" style="width:15%;margin:20px" (click)="goBilling()" > <span style="text-align:center;padding:25px 10px 0px 10px;font-size:25px">Billing</span><i class="fas fa-chevron-circle-right" style="text-align:center;padding:20px 10px 0px 10px;font-size:50px"></i></button>
+    </div>
+</div>
 
 
 

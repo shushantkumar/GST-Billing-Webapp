@@ -21,6 +21,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
 import {ProductentryService} from './productentry/productentry.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {ProductentryService} from './productentry/productentry.service';
     DialogModule,
     PanelModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     ProductentryService

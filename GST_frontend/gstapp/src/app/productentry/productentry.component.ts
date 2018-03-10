@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import {ProductentryService} from './productentry.service';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { HttpModule } from '@angular/http'; 
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-productentry',
@@ -20,7 +21,8 @@ export class ProductentryComponent implements OnInit {
   allentries;
 
   constructor(
-    private productentryService:ProductentryService
+    private productentryService:ProductentryService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,42 +31,17 @@ export class ProductentryComponent implements OnInit {
   } 
   
   getAllProducts(){
-    console.log("Started");
+    this.productentryService.getAllProducts().subscribe(
+      (res) =>{
 
-    let prod ={
-      "products": [
-        {
-      "product_code":"123x",
-      "product_name":"something",
-      "product_price":"1247",
-      "product_gst":"15"
-      },
-      {
-        "product_code":"254k",
-        "product_name":"something1",
-        "product_price":"127",
-        "product_gst":"18"
-      },
-      {
-        "product_code":"783x",
-        "product_name":"something2",
-        "product_price":"124",
-        "product_gst":"5"
-      },
-      {
-        "product_code":"423x",
-        "product_name":"something3",
-        "product_price":"247",
-        "product_gst":"9"
-      },
-    ]
-    }
-    let another = prod.products;
-    this.allentries=another;
+          let response = res.products;
+          this.allentries = response;
+      
+        }, 
+      (err) => console.log(err),
+      () => console.log('done!')
+  );
 
-
-
-    console.log("End");
   }
 
   postNewProduct(event){
@@ -134,6 +111,10 @@ export class ProductentryComponent implements OnInit {
     (<HTMLInputElement> document.getElementById("save")).disabled = true;
 
 
+  }
+
+  goBilling(){
+    this.router.navigate(['billing']);
   }
 
 

@@ -18,13 +18,6 @@ var con = mysql.createConnection({
     database: "gstbilling"
   });
 
-function retFunc(values){
-    if(values){ rsp=values;}
-};
-
-function getFunc(){
-    return rsp;
-}
 // Create a server with a host and port
 const server=Hapi.server({
     host:'localhost',
@@ -97,18 +90,43 @@ server.route(
     path:'/productget',
     config:{
         handler: function (request, reply) {
-            let resp;
+
+            let prod ={
+                "products": [
+                  {
+                "product_code":"123x",
+                "product_name":"something",
+                "product_price":"1247",
+                "product_gst":"15"
+                },
+                {
+                  "product_code":"254k",
+                  "product_name":"something1",
+                  "product_price":"127",
+                  "product_gst":"18"
+                },
+                {
+                  "product_code":"783x",
+                  "product_name":"something2",
+                  "product_price":"124",
+                  "product_gst":"5"
+                },
+                {
+                  "product_code":"423x",
+                  "product_name":"something3",
+                  "product_price":"247",
+                  "product_gst":"9"
+                },
+              ]
+            }
             var sql = "select * from product_details";
             con.query(sql,this, function (err, result) {
                 if (err) throw err;
                 console.log(result);
                 console.log(this.rsp);
-                retFunc(result);
+
             }); 
-            resp=getFunc();
-            console.log(getFunc());
-            console.log(resp);
-            return(resp);
+            return(prod);
  
         },
         description: 'Get product data',
@@ -230,9 +248,7 @@ server.route(
         }
     }
 });
-function newFunction() {
-    console.log(rsp);
-}
+
 
 // Start the server
 async function start() {

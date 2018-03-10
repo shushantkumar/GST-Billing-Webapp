@@ -25,6 +25,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "ng2-search-filter": "^0.4.7",
     "primeng": "^5.2.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
