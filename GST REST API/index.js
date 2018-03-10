@@ -9,6 +9,7 @@ const Joi = require('joi');
 const Pack = require('./package');
 var mysql = require('mysql'); 
 const Relish = require('relish')({});
+let rsp;
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -17,6 +18,13 @@ var con = mysql.createConnection({
     database: "gstbilling"
   });
 
+function retFunc(values){
+    if(values){ rsp=values;}
+};
+
+function getFunc(){
+    return rsp;
+}
 // Create a server with a host and port
 const server=Hapi.server({
     host:'localhost',
@@ -88,27 +96,19 @@ server.route(
     path:'/productget',
     config:{
         handler: function (request, reply) {
-            let resp={};
+            let resp;
             var sql = "select * from product_details";
             con.query(sql,this, function (err, result) {
                 if (err) throw err;
                 console.log(result);
-                this.resp=result;
-                // this.final=result[0];
-                // this.final.product_code=result[0].product_code;
-                // this.final.product_name=result[0].product_name;
-                // this.final.product_price=result[0].product_price;
-                // this.final.product_gst=result[0].product_gst;
-                // return(result);
-                console.log(this.resp);
-                
+                console.log(this.rsp);
+                retFunc(result);
             }); 
-            // function just(){
-            //     this.final.id=2;
-            // };
-
+            resp=getFunc();
+            console.log(getFunc());
             console.log(resp);
             return(resp);
+ 
         },
         description: 'Get product data',
         notes: 'product Get request',
@@ -229,6 +229,10 @@ server.route(
         }
     }
 });
+function newFunction() {
+    console.log(rsp);
+}
+
 // Start the server
 async function start() {
 

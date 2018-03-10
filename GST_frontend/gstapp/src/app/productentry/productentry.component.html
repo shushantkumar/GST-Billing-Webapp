@@ -3,70 +3,76 @@
     <b class="row" align="center" style="color:#da3730;font-size:40px;text-align: center;padding:40px;">GST Billing App</b>
   </div>
 </p-header>
-<br>
-<div class="container-fluid">
-    <form class="col-lg-4 col-md-12 col-sm-12 ui-fluid" style="background-color:#008080;padding:20px">
-        <div class="col-lg-12 col-md-12" style="padding:5px 0px 5px 20px">
-            <b style="font-size:20px;color:white">Product Details</b>
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:20px">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="fas fa-info"> </i></span>
-                <input type="text" style="width:100%" pInputText placeholder="Product Code">         
+<div class="container" style="margin:10px">
+
+    <div class="ui-g-12 col-sm-4 col-md-4 col-xs-12" style="margin-top:10px">
+        <form style="background-color:#008080;padding:20px">
+            <div class="col-lg-12 col-md-12" style="padding:5px 0px 5px 20px">
+                <b style="font-size:20px;color:white">Product Details</b>
             </div>
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:20px">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="fas fa-tags"></i></span>
-                <input type="text" style="width:100%" pInputText placeholder="Product Name">         
+            <div class="col-lg-12 col-md-12" style="padding:20px">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-info"> </i></span>
+                    <input type="text" style="width:100%" pInputText placeholder="Product Code">         
+                </div>
             </div>
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:20px">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><b>₹</b></span>
-                <input type="text" style="width:100%" pInputText placeholder="Product Price">    
-                <span class="ui-inputgroup-addon">.00</span>     
+            <div class="col-lg-12 col-md-12" style="padding:20px">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-tags"></i></span>
+                    <input type="text" style="width:100%" pInputText placeholder="Product Name">         
+                </div>
             </div>
-        </div>
-        <div class="col-lg-12 col-md-12" style="padding:20px">
-            <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="fas fa-percent"></i></span>
-                <input type="text" style="width:100%" pInputText placeholder="Product GST Percentage">         
+            <div class="col-lg-12 col-md-12" style="padding:20px">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><b>₹</b></span>
+                    <input type="number" style="width:100%" pInputText placeholder="Product Price">    
+                    <span class="ui-inputgroup-addon">.00</span>     
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="ui-splitbutton-button col-lg-12" style="padding-left:20px">
-            <button class="col-lg-4 ui-button-success" pButton type="button" (click)="count()" icon="fa-check" iconPos="right" label="Save"></button>
-            <button class="col-lg-4 ui-button-info" pButton type="button" (click)="count()" icon="fas fa-sync" label="Update"></button>
-        </div>
-    </form>
-    <br>
-    <p-table>
+            <div class="col-lg-12 col-md-12" style="padding:20px">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fas fa-percent"></i></span>
+                    <input type="number" style="width:100%" pInputText placeholder="Product GST Percentage">         
+                </div>
+            </div>
+            <br>
+            <div class="ui-splitbutton-button col-lg-12">
+                <button class="col-lg-5 ui-button-success" pButton type="button" (click)="count()" iconPos="right" label="Save"><i class="fa fa-check"></i></button>
+                <button class="col-lg-5 ui-button-info" pButton type="button" (click)="count()" label="Update"><i class="fas fa-sync"></i></button>
+            </div>
+        </form>
+    </div>
+  
+  
+    <div class="ui-g-8 col-sm-12" style="margin-top:10px;">
+        <p-table [value]="allentries">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Vin</th>
-                    <th>Year</th>
-                    <th>Brand</th>
-                    <th>Color</th>
+                    <th style="text-align:center">Product_Code</th>
+                    <th style="text-align:center">Product_Name</th>
+                    <th style="text-align:center">Product_Price ₹</th>
+                    <th style="text-align:center">Product_Gst %</th>
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-columns="columns">
-                <tr>
-                    <td>ar</td>
-                    <td>car</td>
-                    <td>car</td>
-                    <td>car</td>
-                    <td><p-button (onClick)="count()" icon="fas fa-edit"></p-button></td>
+            <br>
+            <ng-template pTemplate="body">
+                <tr *ngFor="let meta of allentries;">
+                    <td>{{meta.product_code}}</td>
+                    <td>{{meta.product_name}}</td>
+                    <td>{{meta.product_price}}</td>
+                    <td>{{meta.product_gst}}</td>
+                    <td  style="text-align:center"><button pButton type="button" (onClick)="count()" label="|____Edit____|"><i class="fas fa-edit"></i></button></td>
                 </tr>
             </ng-template>
 
-    </p-table>
-</div>
-<div class="conatiner">
+        </p-table>
 
+    </div>
 
+  
 </div>
+
 
 
 
