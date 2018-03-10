@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { HttpModule } from '@angular/http'; 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +20,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import {DialogModule} from 'primeng/dialog';
 import {PanelModule} from 'primeng/panel';
+import {ProductentryService} from './productentry/productentry.service';
 
 
 @NgModule({
@@ -27,6 +31,7 @@ import {PanelModule} from 'primeng/panel';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule, 
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
@@ -42,9 +47,13 @@ import {PanelModule} from 'primeng/panel';
     DataViewModule,
     DropdownModule,
     DialogModule,
-    PanelModule
+    PanelModule,
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ProductentryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

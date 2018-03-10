@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClientModule,HttpClient,HttpHeaders} from '@angular/common/http';
+import { HttpModule } from '@angular/http'; 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -30,7 +31,7 @@ export class ProductentryService {
   }
 
   updateProduct(data,params){ 
-    let specificUrl = this.serverURL + 'productpost/'+params;
+    let specificUrl = this.serverURL + 'productput/'+params;
     let headers =  {headers: new  HttpHeaders({ 'Content-Type':  'application/json'})};
     return this.http.put(specificUrl,data,headers)
     .map(this.extractData)
