@@ -34,7 +34,7 @@ const server=Hapi.server({
 
 con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected to database!");
+    //console.log("Connected to database!");
 });
 
 const options = {
@@ -51,33 +51,24 @@ server.register([
         'register': HapiSwagger,
         'options': options
     }], (err) => {
-        console.log(err);
+        //console.log(err);
 
     });
     
 
-// Add the route
+// Add the specific product get route
 server.route(
     {
     method:'GET',
     path:'/productget/{product_code}',
     config:{
-        handler: function (request, reply) {
-            console.log(request.params);
+        handler: function (request, h) {
+            //console.log(request.params);
             let product_code = request.params.product_code;
-            let final={
-            };
-
-            var sql = "select * from product_details where product_code='"+product_code+"'";
-            con.query(sql, function (err, result) {
-                if (err) throw err;
-                // console.log(result);
-                // this.final=result[0];
-                return(result);
-            }); 
-
-            console.log(something);
-            return("something");
+            let notes= db.query("select * from product_details where product_code='"+product_code+"'")
+            //console.log(notes);
+            return notes;
+        
         },
         description: 'Get product data',
         notes: 'product Get request',
@@ -92,7 +83,7 @@ server.route(
 });
 
 
-
+// All products get route
 server.route(
     {
     method:'GET',
@@ -101,7 +92,7 @@ server.route(
         handler: (request, h) =>{
 
             let notes= db.query("select * from product_details")
-            console.log(notes);
+            //console.log(notes);
             return notes;
         },
         description: 'Get product data',
@@ -113,13 +104,14 @@ server.route(
     }
 });
 
+// New product posting route
 server.route(
     {
     method:'POST',
     path:'/productpost',
     config: {handler: function(request,reply){
-        // console.log(request.params); //params for get
-        console.log(request.payload);
+        // //console.log(request.params); //params for get
+        //console.log(request.payload);
         let product_code = request.payload.product_code;
         let product_name = request.payload.product_name;
         let product_price = request.payload.product_price;
@@ -128,7 +120,7 @@ server.route(
             var sql = "INSERT INTO product_details (id,product_code,product_name,product_price,product_gst ) VALUES ('','"+product_code+"','"+product_name+"','"+product_price+"','"+product_gst+"')";
             con.query(sql, function (err, result) {
               if (err) throw err;
-              console.log("1 record inserted");
+              //console.log("1 record inserted");
             });
 
         return ({success:true,message: "product data stored"});
@@ -149,6 +141,7 @@ server.route(
     }
 });
 
+// Deleting any specific product route
 server.route({
     method: 'DELETE',
     path: '/productdel/{product_code}',
@@ -179,26 +172,27 @@ server.route({
     }
 });
 
+// Updating any product details PUT route
 server.route(
     {
     method:'PUT',
     path:'/productput/{product_code}',
     config: {handler: function(request,reply){
-        // console.log(request.params); //params for get
-        console.log("hey reached");
-        console.log(request.payload);
+        //console.log(request.params); //params for get
+        //console.log("hey reached");
+        //console.log(request.payload);
         let product_code = request.params.product_code;
-        console.log(product_code);
+        //console.log(product_code);
         let product_name = request.payload.product_name;
         let product_price = request.payload.product_price;
         let product_gst = request.payload.product_gst;
-        console.log(product_gst);
+        //console.log(product_gst);
 
             var sql = "update product_details set product_name='"+product_name+"',product_price='"+product_price+"',product_gst='"+product_gst+"' where product_code='"+product_code+"'";
             con.query(sql, function (err, result) {
               if (err) throw err;
-              console.log(result);
-              console.log("1 record updated");
+              //console.log(result);
+              //console.log("1 record updated");
             });
 
         return ({success:true,message: "product data updated"});
@@ -230,11 +224,11 @@ async function start() {
         await server.start();
     }
     catch (err) {
-        console.log(err);
+        //console.log(err);
         process.exit(1);
     }
 
-    console.log('Server running at:', server.info.uri);
+    //console.log('Server running at:', server.info.uri);
 };
 
 start();

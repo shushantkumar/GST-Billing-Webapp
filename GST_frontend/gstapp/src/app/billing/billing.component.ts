@@ -25,6 +25,7 @@ export class BillingComponent implements OnInit {
     this.getAllProducts();
   }
 
+
   getAllProducts(){
     this.productentryService.getAllProducts().subscribe(
       (res) =>{
@@ -39,6 +40,7 @@ export class BillingComponent implements OnInit {
 
   }
 
+  
   selectProduct(meta){
     console.log(meta);
     let newSelect = meta;
