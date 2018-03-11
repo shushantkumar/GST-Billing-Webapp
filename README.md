@@ -13,25 +13,28 @@ MySQL Server running with a database name gstbilling and a table name product_de
     ```
         git clone https://github.com/shushantkumar/ps-drive-2018-gst-app.git
     ```
-2. Move into the directory  
+2. To start the REST API server follow the commands below  
     
     ```
-        cd ps-drive-2018-gst-app
+        cd ps-drive-2018-gst-app/GST_REST_API
+        npm install
+        npm start
     ```       
-3. To run the version with Concurrency implemented 
+   and backend server will be running on http://localhost:8000 
+
+3. To run frontend Application 
 
     ```
-        go run final_withconc.go
+        cd ps-drive-2018-gst-app/GST_frontend/gstapp/
+        npm install
+        ng serve
     ``` 
-   and open http://localhost:8000 in your browser  
-4. To run the version with Concurrency not implemented 
-
-    ```
-        go run before_conc.go
-    ```
-   and open http://localhost:8000 in your browser  
+   and open http://localhost:4200 in your browser to access the Web Application  
+<br>
 <br>
 
+### Working Details
+<br>
 * The Product Entry page appears as below <br><br>
 ![](./readme_pics/pic1.png)
 <br>
