@@ -32,7 +32,7 @@ export class BillingComponent implements OnInit {
 
           let response = res[0];
           this.allentries = response;
-          console.log(response);
+          // console.log(response);
         }, 
       (err) => console.log(err),
       () => console.log('done!')
@@ -42,17 +42,17 @@ export class BillingComponent implements OnInit {
 
   
   selectProduct(meta){
-    console.log(meta);
+    // console.log(meta);
     let newSelect = meta;
     meta["prod_quant"]="1";
     let inter=(meta.prod_quant*0.01*meta.product_gst*meta.product_price).toFixed(2);
     meta["prod_frac"]="100";
-    console.log(meta);
+    // console.log(meta);
     this.selectProducts.prods.push(meta);
     let fin=parseFloat(inter);
-    console.log(fin);
+    // console.log(fin);
     this.grossTotal=this.grossTotal+fin;
-    console.log(this.grossTotal);
+    // console.log(this.grossTotal);
     // console.log(this.selectProducts);
   }
 

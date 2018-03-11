@@ -33,7 +33,7 @@ export class ProductentryComponent implements OnInit {
   getAllProducts(){
     this.productentryService.getAllProducts().subscribe(
       (res) =>{
-          console.log(res[0]);
+          //console.log(res[0]);
           let response = res[0];
           this.allentries = response;
       
@@ -57,9 +57,9 @@ export class ProductentryComponent implements OnInit {
       "product_price":product_price,
       "product_gst":product_gst
     }
-    console.log(data);
+    //console.log(data);
     this.productentryService.postNewProduct(data).subscribe(response=> {
-      console.log(response);
+      //console.log(response);
       let res = response;
       console.log("added");
     }); 
@@ -87,7 +87,7 @@ export class ProductentryComponent implements OnInit {
     }
     console.log(data);
     this.productentryService.updateProduct(data,product_code).subscribe(response=> {
-      console.log(response);
+      //console.log(response);
       let res = response;
       console.log("updated");
     }); 
@@ -107,7 +107,7 @@ export class ProductentryComponent implements OnInit {
   deleteProduct(meta){
     let product_code=meta.product_code;
     this.productentryService.deleteProduct(product_code).subscribe(response=> {
-      console.log(response);
+      //console.log(response);
       let res = response;
       console.log("deleted");
       
@@ -116,7 +116,7 @@ export class ProductentryComponent implements OnInit {
   }
 
   editProduct(meta){
-    console.log(meta);
+    //console.log(meta);
     (<HTMLInputElement> document.getElementById("update")).disabled = false;
     this.product_code = meta.product_code;
     this.product_name = meta.product_name;
