@@ -65,7 +65,7 @@ Like here I made changes in Product4 with product code 7821u and change its fiel
 * So we add some more products...<br><br>
 ![](./readme_pics/pic9.png)
 <br><br>
-And finally making any changes to the quantity of any product dynamically changes the Total Price and Total Gross Price as depicted below<br>
+* And finally making any changes to the quantity of any product dynamically changes the Total Price and Total Gross Price as depicted below<br>
 ![](./readme_pics/pic10.png)<br><br>
 
 * <b>Note:</b><i>If changes are not getting reflected in product entry page then reload the page or press again.</i>
