@@ -1,6 +1,6 @@
 # GST-Billing-App
 
-In this app new product can be added, existing products can be edited in product entry page. Then in billing page all existing products are displayed in a table with search option to search according to any field. After selecting the quantity can be changed and total cost of that product and gross total cost will be updated dynamically.<br>
+In this app new product can be added, existing products can be edited in product entry page. Then in billing page all existing products are displayed in a table with search option to search according to any field. After selecting the product its quantity can be changed and total cost of that product and gross total cost will be updated dynamically.<br>
 
 ### Requirements
 MySQL Server running with a database name gstbilling and a table name product_details with 5 columns id<PK>, product_code<Unique>, product_name, product_price, product_gst.<br>  
@@ -34,13 +34,12 @@ MySQL Server running with a database name gstbilling and a table name product_de
 <br>
 
 ### Working Details
-<br>
 * The Product Entry page appears as below <br><br>
 ![](./readme_pics/pic1.png)
 <br>
 <br>
 
-* There is a form to fill Product details on the left and a table showing existing products in the database.As a new product is filled the table gets updated with new product entry.
+* There is a form to fill Product details on the left and a table showing existing products in the database. As a new product is filled the table gets updated with new product entry.
 Initially the Update button is disabled. <br><br>
 ![](./readme_pics/pic2.png)
 <br><br>
