@@ -38,7 +38,14 @@ export class ProductentryService {
     .catch(this.handleError);
   }
 
+  deleteProduct(data){
+    let specificUrl = this.serverURL + 'productdel/'+data;
+    let headers =  {headers: new  HttpHeaders({ 'Content-Type':  'application/json'})};
+    return this.http.delete(specificUrl,headers)
+    .map(this.extractData)
+    .catch(this.handleError);
 
+  }
 
 
 

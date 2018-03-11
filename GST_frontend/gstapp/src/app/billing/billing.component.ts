@@ -29,7 +29,7 @@ export class BillingComponent implements OnInit {
     this.productentryService.getAllProducts().subscribe(
       (res) =>{
 
-          let response = res.products;
+          let response = res[0];
           this.allentries = response;
           console.log(response);
         }, 

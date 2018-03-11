@@ -53,6 +53,7 @@
                     <th style="text-align:center">Product_Price (₹)</th>
                     <th style="text-align:center">Product_Gst (%)</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </ng-template>
             <br>
@@ -62,7 +63,8 @@
                     <td>{{meta.product_name}}</td>
                     <td>{{meta.product_price}}</td>
                     <td>{{meta.product_gst}}</td>
-                    <td style="text-align:center"><button pButton type="button" (click)="editProduct(meta)" label="|____Edit____|"><i class="fas fa-edit"></i></button></td>
+                    <td style="text-align:center"><button pButton type="button" (click)="editProduct(meta)" label="Edit"><i class="fas fa-edit"></i></button></td>
+                    <td style="text-align:center"><button class="ui-button-danger" pButton type="button" (click)="deleteProduct(meta)" label="Delete"><i class="far fa-trash-alt"></i></button></td>
                 </tr>
             </ng-template>
 

@@ -14,6 +14,7 @@
     "hapi-swagger": "^9.1.1",
     "inert": "^5.1.0",
     "mysql": "^2.15.0",
+    "mysql-promise": "^4.1.0",
     "relish": "^0.2.5",
     "vision": "^5.3.1"
   },

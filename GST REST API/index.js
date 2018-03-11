@@ -9,7 +9,14 @@ const Joi = require('joi');
 const Pack = require('./package');
 var mysql = require('mysql'); 
 const Relish = require('relish')({});
-let rsp;
+var db = require('mysql-promise')();
+
+db.configure({
+	"host": "localhost",
+	"user": "root",
+	"password": "",
+	"database": "gstbilling"
+});
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -84,59 +91,24 @@ server.route(
     }
 });
 
+
+
 server.route(
     {
     method:'GET',
     path:'/productget',
     config:{
-        handler: function (request, reply) {
+        handler: (request, h) =>{
 
-            let prod ={
-                "products": [
-                  {
-                "product_code":"123x",
-                "product_name":"something",
-                "product_price":"1247",
-                "product_gst":"15"
-                },
-                {
-                  "product_code":"254k",
-                  "product_name":"something1",
-                  "product_price":"127",
-                  "product_gst":"18"
-                },
-                {
-                  "product_code":"783x",
-                  "product_name":"something2",
-                  "product_price":"124",
-                  "product_gst":"5"
-                },
-                {
-                  "product_code":"423x",
-                  "product_name":"something3",
-                  "product_price":"247",
-                  "product_gst":"9"
-                },
-              ]
-            }
-            var sql = "select * from product_details";
-            con.query(sql,this, function (err, result) {
-                if (err) throw err;
-                console.log(result);
-                console.log(this.rsp);
-
-            }); 
-            return(prod);
- 
+            let notes= db.query("select * from product_details")
+            console.log(notes);
+            return notes;
         },
         description: 'Get product data',
         notes: 'product Get request',
         tags: ['api'],
         validate: {
             failAction: Relish.failAction,
-            // params: {
-            //     product_code :Joi.string().required()
-            // }
         }   
     }
 });
@@ -191,8 +163,9 @@ server.route({
        } else {
            return(false);
        }
+       return ({success:true,message: "product data deleted"});
     });
-    return("Deleted");
+    return({success:true,message: "product data deleted"});
     },
     config: {
         description: 'delete product data',

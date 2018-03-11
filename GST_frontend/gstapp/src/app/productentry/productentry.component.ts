@@ -33,8 +33,8 @@ export class ProductentryComponent implements OnInit {
   getAllProducts(){
     this.productentryService.getAllProducts().subscribe(
       (res) =>{
-
-          let response = res.products;
+          console.log(res[0]);
+          let response = res[0];
           this.allentries = response;
       
         }, 
@@ -91,14 +91,28 @@ export class ProductentryComponent implements OnInit {
       let res = response;
       console.log("updated");
     }); 
-
+    this.getAllProducts();
     this.product_code = "";
     this.product_name = "";
     this.product_price = 0;
     this.product_gst = 0;
-    this.getAllProducts();
+
+    
     (<HTMLInputElement> document.getElementById("save")).disabled = false;
     (<HTMLInputElement> document.getElementById("update")).disabled = true;
+    (<HTMLInputElement> document.getElementById("product_code")).disabled = false;
+    this.getAllProducts();
+  }
+
+  deleteProduct(meta){
+    let product_code=meta.product_code;
+    this.productentryService.deleteProduct(product_code).subscribe(response=> {
+      console.log(response);
+      let res = response;
+      console.log("deleted");
+      
+    }); 
+    this.getAllProducts();
   }
 
   editProduct(meta){
@@ -109,6 +123,7 @@ export class ProductentryComponent implements OnInit {
     this.product_price = meta.product_price;
     this.product_gst = meta.product_gst;
     (<HTMLInputElement> document.getElementById("save")).disabled = true;
+    (<HTMLInputElement> document.getElementById("product_code")).disabled = true;
 
 
   }
